@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "**/*.html": "html",
+        "**/templates/**/*.html": "html",
+        "**/templates/**/*": "django-txt",
+        "**/requirements{/**,*}.{txt,in}": "pip-requirements",
+        "*.html": "html",
+        "array": "cpp",
+        "deque": "cpp",
+        "forward_list": "cpp",
+        "string": "cpp",
+        "vector": "cpp",
+        "iterator": "cpp",
+        "string_view": "cpp"
+    }
+}
