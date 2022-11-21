@@ -12,36 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef clox_chunk_h
-#define clox_chunk_h
-
-#include <stdio.h>
-#include "common.h"
-#include "memory.h"
-#include "value.h"
-typedef enum
-{
-    OP_CONSTANT,
-    OP_ADD,
-    OP_SUBTRACT,
-    OP_MULTIPLY,
-    OP_DIVIDE,
-    OP_NEGATE,
-    OP_RETURN
-
-} opCode;
-
-typedef struct
-{
-    int count;
-    int capacity;
-    uint8_t *code;
-    int *lines;
-    ValueArray constants;
-} Chunk;
-
-void initChunk(Chunk *chunk);
-void freeChunk(Chunk *chunk);
-void writeChunk(Chunk *chunk, uint8_t byte, int line);
-void addConstant(Chunk *chunk, Value value);
+#ifndef clox_compiler_h
+#define clox_compiler_h
+void compile(const char *source);
 #endif

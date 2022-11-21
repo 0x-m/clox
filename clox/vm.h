@@ -12,36 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef clox_chunk_h
-#define clox_chunk_h
+#ifndef clox_vm_h
+#define clox_vm_h
 
-#include <stdio.h>
-#include "common.h"
-#include "memory.h"
+#include "chunk.h"
 #include "value.h"
-typedef enum
-{
-    OP_CONSTANT,
-    OP_ADD,
-    OP_SUBTRACT,
-    OP_MULTIPLY,
-    OP_DIVIDE,
-    OP_NEGATE,
-    OP_RETURN
 
-} opCode;
+#define STACK_MAX 256
 
 typedef struct
 {
-    int count;
-    int capacity;
-    uint8_t *code;
-    int *lines;
-    ValueArray constants;
-} Chunk;
+    Chunk *chunk;
+    uint8_t *ip;
+    Value stack[STACK_MAX];
+    Value *stackTop;
+} VM;
 
-void initChunk(Chunk *chunk);
-void freeChunk(Chunk *chunk);
-void writeChunk(Chunk *chunk, uint8_t byte, int line);
-void addConstant(Chunk *chunk, Value value);
+typedef enum
+{
+    INTERPRET_OK,
+    INTERPRET_COMPILE_ERROR,
+    INTERPRET_RUNTIME_ERROR
+
+} InterpretResult;
+
+void initVM();
+void freeVM();
+InterpretResult interpret(const char *source);
+void push(Value value);
+Value pop();
+
 #endif
