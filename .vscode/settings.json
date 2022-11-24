@@ -17,5 +17,6 @@
         "type_traits": "c",
         "exception": "c",
         "typeinfo": "c"
-    }
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }
