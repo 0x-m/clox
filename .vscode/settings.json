@@ -12,6 +12,10 @@
         "vector": "cpp",
         "iterator": "cpp",
         "string_view": "cpp",
-        "common.h": "c"
+        "common.h": "c",
+        "functional": "c",
+        "type_traits": "c",
+        "exception": "c",
+        "typeinfo": "c"
     }
 }

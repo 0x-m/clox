@@ -21,6 +21,9 @@
 #include "compiler.h"
 VM vm;
 
+static void resetStack();
+static InterpretResult run();
+
 void initVM()
 {
     resetStack();
@@ -37,8 +40,22 @@ static void resetStack()
 
 InterpretResult interpret(const char *source)
 {
-    compile(source);
-    return INTERPRET_OK;
+    Chunk chunk;
+    initChunk(&chunk);
+
+    if (!compile(source, &chunk))
+    {
+        freeChunk(&chunk);
+        return INTERPRET_COMPILE_ERROR;
+    }
+
+    vm.chunk = &chunk;
+    vm.ip = vm.chunk->code;
+
+    InterpretResult result = run();
+
+    freeChunk(&chunk);
+    return result;
 }
 
 void push(Value value)
@@ -74,7 +91,7 @@ static InterpretResult run()
             printValue(*slot);
             printf(" ]");
         }
-        disassembleInstruction(vm.chunk, (int)(vm.ip - vm.chunk));
+        disassembleInstruction(vm.chunk, (int)(vm.ip - vm.chunk->code));
 #endif
         uint8_t instruction;
         switch (instruction = READ_BYTE())
