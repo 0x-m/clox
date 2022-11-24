@@ -12,8 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "chunk.h"
 #ifndef clox_compiler_h
+#include "chunk.h"
+#include "object.h"
+#include "vm.h"
 #define clox_compiler_h
 bool compile(const char *source, Chunk *chunk);
 #endif

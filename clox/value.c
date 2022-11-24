@@ -15,7 +15,9 @@
  */
 
 #include <stdio.h>
+#include <string.h>
 
+#include "object.h"
 #include "memory.h"
 #include "value.h"
 
@@ -58,11 +60,14 @@ void printvalue(Value value)
     case VAL_NUMBER:
         printf("%g", AS_NUMBER(value));
         break;
+    case VAL_OBJ:
+        printObject(value);
+        break;
     }
     printf("%g", AS_NUMBER(value));
 }
 
-bol valueEqual(Value a, Value b)
+bool valueEqual(Value a, Value b)
 {
     if (a.type != b.type)
         return false;
@@ -75,6 +80,13 @@ bol valueEqual(Value a, Value b)
         return true;
     case VAL_NUMBER:
         return AS_NUMBER(a) == AS_NUMBER(b);
+    case VAL_OBJ:
+    {
+        ObjString *aString = AS_STRING(a);
+        ObjString *bString = AS_STRING(b);
+        return aString->length == bString->length &&
+               memcmp(aString->chars, bString->chars) == 0;
+    }
     default:
         return false; // Unreachable
     }

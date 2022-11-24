@@ -16,7 +16,8 @@
         "functional": "c",
         "type_traits": "c",
         "exception": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "string.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
